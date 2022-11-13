@@ -13,4 +13,14 @@ use App\Http\Controllers\ProductController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource('products',ProductController::class);
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::resource('products',ProductController::class)->middleware(['auth','verified']);
+Auth::routes(['verify'=>true]);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
